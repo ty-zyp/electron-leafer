@@ -16,12 +16,17 @@ import {
 } from 'leafer-ui'
 import '@leafer-in/editor'
 
+// const dom = document.getElementById('app')
+
+// let offX = dom.offsetLeft
+// let offY = dom.offsetTop
+
 let isDrawing = false
 let canDrawing = false
 
 const app = new App({ view: 'app', editor: {} })
 
-let p
+let p: any
 // p.editable = true
 // p.setStyle({ stroke: '#FF4B4B', strokeWidth: 2, x: 20, y: 20 })
 // p.moveTo(20, 20)
@@ -39,7 +44,7 @@ function down(e: PointerEvent) {
   startY = e.y
   p = new Pen()
   p.editable = false
-  p.setStyle({ stroke: '#FF4B4B', strokeWidth: 2, x: 20, y: 20 })
+  p.setStyle({ stroke: '#FF4B4B', strokeWidth: 2, x: 0, y: 0 })
   p.moveTo(startX, startY)
   isDrawing = true
   app.tree.add(p)
@@ -49,6 +54,7 @@ function move(e: PointerEvent) {
     return
   }
   p.clearPath()
+  p.setStyle({ stroke: '#FF4B4B', strokeWidth: 2, x: 20, y: 20 })
   console.log('move', e)
   endX = e.x
   endY = e.y
@@ -60,6 +66,8 @@ function up(e: PointerEvent) {
     return
   }
   console.log('up', e)
+  p.clearPath()
+  p.setStyle({ stroke: '#FF4B4B', strokeWidth: 2, x: 20, y: 20 })
   p.lineTo(endX, endY)
   // p.closePath()
   p.editable = true
